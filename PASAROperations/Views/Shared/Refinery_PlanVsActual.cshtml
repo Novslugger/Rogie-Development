@@ -1,0 +1,575 @@
+﻿<div id="tabs-container" style="padding-left:10px;">
+    <ul class="tabs-menu">
+        <li class="current"><a href="#tab-1"><b>Plan Vs Actual</b></a></li>
+        <li><a href="#tab-2"><b>Machine Downtime</b></a></li>
+    </ul>
+    <br />
+    <br />
+    <div class="tab">
+        <!-- Casting Wheel 1 Tab-->
+        <div id="tab-1" class="tab-content">
+            <div style="width: 1500px;">
+                @*    <div style="position: absolute; left: 342px; top: 55px;">
+     <img id="rpp_savedata_btn" width="25" height="25" src="../Images/diskette.png" /><span id="rpp_savedata_link" class="btn_label_span">Save</span>
+</div>
+    <img width="20" height="20" title="Add New Entry" id="add_rpp_entry_btn" src="../Images/red_plus.png">&nbsp;&nbsp;<span title="Add New Entry" class="btn_label_span" id="add_rpp_entry_lnk">Add Item </span>*@
+                <table  style="left: 165px; top: 215px; position: absolute;">
+                    <tr>
+                        @*     <td><span class="ref_text_label">Select Date:</span></td>
+            <td>
+                <input type="text" id="rpp_daily_date" class="ref_date" onchange="load_refineryproducitonplan_graph()" />
+            </td>
+            <td>&nbsp;&nbsp;</td>*@
+                        <td><span class="ref_text_label">Filter by block:</span></td>
+                        <td>@Html.DropDownList("load_production_by_block", (SelectList)ViewBag.blocklist, "--Select--", new { onchange = "load_production_by_block_load()" })</td>
+                        <td>&nbsp;&nbsp;</td>
+                        <td>&nbsp;&nbsp;</td>
+                        <td><span class="ref_text_label">Filter by Stream:</span></td>
+                        <td>@Html.DropDownList("streamid", (SelectList)ViewBag.streamslist, "--Select--", new { onchange = "drawChart_per_stream_load()" })</td>
+                        <td>&nbsp;&nbsp;</td>
+                        <td>&nbsp;&nbsp;</td>
+                        @* <td class="label_datetype">Production Type:</td>
+            <td class="border_color">
+                <select id="production_type" onchange="load_production_by_block();">
+                    <option value="0">--Select--</option>
+                    <option value="1">Plan</option>
+                    <option value="2">Actual</option>
+                </select>
+            </td>
+            <td>&nbsp;&nbsp;</td>
+            <td>&nbsp;&nbsp;</td>*@
+                        <td><span class="btn_label_span" style="text-decoration: underline; cursor: pointer;" id="rmmd_refresh" onclick="load_rmmd_refresh();">Refresh&#x21bb;</span></td>
+                    </tr>
+                </table> 
+    <div>
+        <table style="position: absolute; left:980px; top:205px; font-size:11px;">
+            <tr>
+                <td style="background-color: #00b300; width: 35px; padding: 2px; color: white;">ST</td>
+                <td>- Shorting time and preparation before cathode pull-out</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td style="background-color: #861286; width: 35px; padding: 2px; color: white;">MD</td>
+                <td>- Machine Downtime</td>
+            </tr>
+         @*   <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>*@
+            <tr>
+                <td style="background-color: #ffea00; width: 35px; padding: 2px; color: black;">CP</td>
+                <td>- Cathode pull-out and stripping/plate charging</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td style="background-color: #ffa500; width: 35px; padding: 2px; color: white;">KR</td>
+                <td>- kAH Reading</td>
+            </tr>
+         @*   <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>*@
+            <tr>
+                <td style="background-color: #cc0000; width: 35px; padding: 2px; color: white;">EF</td>
+                <td>- Electrolyte filling-up and preparation before current resumption</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td style="background-color: black; width: 35px; padding: 2px; color: white;">OFF</td>
+                <td>- Off line</td>
+            </tr>
+          @*  <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>*@
+            <tr>
+                <td style="background-color: #0080ff; width: 35px; padding: 2px; color: white;">LT</td>
+                <td>- Lull time</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                @*  <td style="background-color: gray; width: 35px; padding: 2px; color: white;">OL</td>
+            <td>- Online</td>*@
+            </tr>
+           @* <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>*@
+            <tr>
+                <td style="background-color: #a5682a; width: 35px; padding: 2px; color: white;">AC</td>
+                <td>- Anode charging</td>
+            </tr>
+         @*   <tr>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>*@
+            <tr>
+                <td style="background-color: #ff8989; width: 35px; padding: 2px; color: white;">CR</td>
+                <td>- Current Resumption</td>
+            </tr>
+        </table>
+    </div>
+            
+                <div style="width: 1500px; padding-top:75px;">
+                    @*  <span class="ref_text_label">
+            <img onclick="add_prodact_datadirect_plan(1);" class="btn_label_span" width="15" height="10" src="../Images/red_plus.png" title="Add" />
+            <span title="Add" class="btn_label_span" onclick="add_prodact_datadirect_plan(1);">Add new</span><br>
+            <h4>Plan</h4>
+        </span>
+        <div id="timeLineGraph_actual" style="width: auto; height: auto;">
+        </div>
+        <br>*@
+                    <div id="act_prod" style="padding-top: 50px;">
+                        <span class="ref_text_label">
+                            <img onclick="add_prodact_datadirect();" class="btn_label_span" width="15" height="10" src="../Images/red_plus.png" title="Add" />
+                            <span title="Add" class="btn_label_span" onclick="add_prodact_datadirect();">Add new</span><br>
+                            <h4>Plan Vs Actual</h4>
+                        </span>
+                        <div id="timeLineGraph_plan" style="width: auto; height: auto;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*      <br>
+        <span class="ref_text_label">
+            <img onclick="add_prodact_add_restrict();" class="btn_label_span" width="15" height="10" src="../Images/red_plus.png" title="Add" />
+            <span title="Add" class="btn_label_span" onclick="add_prodact_add_restrict();">Add new</span><br>
+            <h4>Plan and Actual</h4>
+        </span>
+        <div id="timeLineGraph_restrict" style="width: auto; height: auto;">
+        </div>*@
+        <br>
+        <div id="tab-2" class="tab-content">
+            <div id="act_prodmd" style="padding-top: 50px;">
+                <span class="ref_text_label">
+                    @* <img onclick="add_prodact_data();" class="btn_label_span" width="15" height="10" src="../Images/red_plus.png" title="Add" />
+                <span title="Add" class="btn_label_span" onclick="add_prodact_data();">Add new</span><br>*@
+                    <h4>Machine Downtime</h4>
+                </span>
+                <div id="timeLineGraph_MD" style="width: auto; height: auto;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*    <table class="rpp_refine_table" id="rpp_tbl_daily">
+        <tr>
+            <th></th>
+            <th colspan="120" style="background-color: #6d6d6d !important;">2ND SHIFT</th>
+            <th colspan="32" style="background-color: #2196F3 !important;">3RD SHIFT</th>
+            <th colspan="32" style="background-color: #d9534f !important;">1ST SHIFT</th>
+            <th></th>
+        </tr>
+        <tr>
+            <th>Block</th>
+            <th style="width: 6%;" colspan="15">0700</th>
+            <th style="width: 6%;" colspan="4">0800</th>
+            <th style="width: 6%;" colspan="4">0900</th>
+            <th style="width: 6%;" colspan="4">1000</th>
+            <th style="width: 6%;" colspan="4">1100</th>
+            <th style="width: 6%;" colspan="4">1200</th>
+            <th style="width: 6%;" colspan="4">1300</th>
+            <th style="width: 6%;" colspan="4">1400</th>
+            <th style="width: 6%;" colspan="4">1500</th>
+            <th style="width: 6%;" colspan="4">1600</th>
+            <th style="width: 6%;" colspan="4">1700</th>
+            <th style="width: 6%;" colspan="4">1800</th>
+            <th style="width: 6%;" colspan="4">1900</th>
+            <th style="width: 6%;" colspan="4">2000</th>
+            <th style="width: 6%;" colspan="4">2100</th>
+            <th style="width: 6%;" colspan="4">2200</th>
+            <th style="width: 6%;" colspan="4">2300</th>
+            <th style="width: 6%;" colspan="4">2400</th>
+            <th style="width: 6%;" colspan="4">0100</th>
+            <th style="width: 6%;" colspan="4">0200</th>
+            <th style="width: 6%;" colspan="4">0300</th>
+            <th style="width: 6%;" colspan="4">0400</th>
+            <th style="width: 6%;" colspan="4">0500</th>
+            <th style="width: 6%;" colspan="4">0600</th>
+            <th>&nbsp;&nbsp;&nbsp;&nbsp;Remarks&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+        </tr>
+        <tr>
+         
+
+            <th></th>
+            <th style="width: 5%;">7:00</th>
+            <th style="width: 5%;">7:15</th>
+            <th style="width: 5%;">7:30</th>
+            <th style="width: 5%;">7:45</th>
+
+            <th style="width: 5%;">8:00</th>
+            <th style="width: 5%;">8:15</th>
+            <th style="width: 5%;">8:30</th>
+            <th style="width: 5%;">8:45</th>
+
+            <th style="width: 5%;">9:00</th>
+            <th style="width: 5%;">9:15</th>
+            <th style="width: 5%;">9:30</th>
+            <th style="width: 5%;">9:45</th>
+
+            <th style="width: 5%;">10:00</th>
+            <th style="width: 5%;">10:15</th>
+            <th style="width: 5%;">10:30</th>
+            <th style="width: 5%;">10:45</th>
+
+            <th style="width: 5%;">11:00</th>
+            <th style="width: 5%;">11:15</th>
+            <th style="width: 5%;">11:30</th>
+            <th style="width: 5%;">11:45</th>
+
+            <th style="width: 5%;">12:00</th>
+            <th style="width: 5%;">12:15</th>
+            <th style="width: 5%;">12:30</th>
+            <th style="width: 5%;">12:45</th>
+
+            <th style="width: 5%;">13:00</th>
+            <th style="width: 5%;">13:15</th>
+            <th style="width: 5%;">13:30</th>
+            <th style="width: 5%;">13:45</th>
+
+            <th style="width: 5%;">14:00</th>
+            <th style="width: 5%;">14:15</th>
+            <th style="width: 5%;">14:30</th>
+            <th style="width: 5%;">14:45</th>
+
+            <th style="width: 5%;">15:00</th>
+            <th style="width: 5%;">15:15</th>
+            <th style="width: 5%;">15:30</th>
+            <th style="width: 5%;">15:45</th>
+
+            <th style="width: 5%;">16:00</th>
+            <th style="width: 5%;">16:15</th>
+            <th style="width: 5%;">16:30</th>
+            <th style="width: 5%;">16:45</th>
+
+            <th style="width: 5%;">17:00</th>
+            <th style="width: 5%;">17:15</th>
+            <th style="width: 5%;">17:30</th>
+            <th style="width: 5%;">17:45</th>
+
+            <th style="width: 5%;">18:00</th>
+            <th style="width: 5%;">18:15</th>
+            <th style="width: 5%;">18:30</th>
+            <th style="width: 5%;">18:45</th>
+
+            <th style="width: 5%;">19:00</th>
+            <th style="width: 5%;">19:15</th>
+            <th style="width: 5%;">19:30</th>
+            <th style="width: 5%;">19:45</th>
+
+            <th style="width: 5%;">20:00</th>
+            <th style="width: 5%;">20:15</th>
+            <th style="width: 5%;">20:30</th>
+            <th style="width: 5%;">20:45</th>
+
+            <th style="width: 5%;">21:00</th>
+            <th style="width: 5%;">21:15</th>
+            <th style="width: 5%;">21:30</th>
+            <th style="width: 5%;">21:45</th>
+
+            <th style="width: 5%;">22:00</th>
+            <th style="width: 5%;">22:15</th>
+            <th style="width: 5%;">22:30</th>
+            <th style="width: 5%;">22:45</th>
+
+            <th style="width: 5%;">23:00</th>
+            <th style="width: 5%;">23:15</th>
+            <th style="width: 5%;">23:30</th>
+            <th style="width: 5%;">23:45</th>
+
+            <th style="width: 5%;">00:00</th>
+            <th style="width: 5%;">00:15</th>
+            <th style="width: 5%;">00:30</th>
+            <th style="width: 5%;">00:45</th>
+
+            <th style="width: 5%;">01:00</th>
+            <th style="width: 5%;">01:15</th>
+            <th style="width: 5%;">01:30</th>
+            <th style="width: 5%;">01:45</th>
+
+            <th style="width: 5%;">02:00</th>
+            <th style="width: 5%;">02:15</th>
+            <th style="width: 5%;">02:30</th>
+            <th style="width: 5%;">02:45</th>
+
+            <th style="width: 5%;">03:00</th>
+            <th style="width: 5%;">03:15</th>
+            <th style="width: 5%;">03:30</th>
+            <th style="width: 5%;">03:45</th>
+
+            <th style="width: 5%;">04:00</th>
+            <th style="width: 5%;">04:15</th>
+            <th style="width: 5%;">04:30</th>
+            <th style="width: 5%;">04:45</th>
+
+            <th style="width: 5%;">05:00</th>
+            <th style="width: 5%;">05:15</th>
+            <th style="width: 5%;">05:30</th>
+            <th style="width: 5%;">05:45</th>
+
+            <th style="width: 5%;">06:00</th>
+            <th style="width: 5%;">06:15</th>
+            <th style="width: 5%;">06:30</th>
+            <th style="width: 5%;">06:45</th>
+            <th style="width: 5%;"></th>
+
+        </tr>
+
+    </table>*@
+
+    @* <table class="rppd_refine_table" id="rpp_tbl_daily">
+        <tr>@for(var i = 0; i <= 192; i++){            
+            <th></th>
+                i++;
+            }</tr>
+        <tr style="display: none;">
+        </tr>
+    </table>*@
+    @*   <br>
+        <span class="ref_text_label">
+            <h4>Static Data</h4>
+        </span>
+        <div id="timeLineGraph_sample">
+        </div>*@  
+</div>
+<div id="Dialog_prod_insert_activity" style="display: none;"></div>
+<div id="Dialog_proddirect_edit_activity" style="display: none;"></div>
+<div id="Dialog_prod_add_activity" style="display: none;"></div>
+<div id="Dialog_prod_edit_activity" style="display: none;"></div>
+<div id="Dialog_prodact_option" style="display: none;"></div>
+<span id="rppTotalDuration" style="display: none;"></span>
+<div id="Dialog_prod_add_activity_plan" style="display: none;"></div>
+<div id="Dialog_prod_edit_activity_plan" style="display: none;"></div>
+<div id="Dialog_prod_insert_activity_plan" style="display: none;"></div>
+<div id="Dialog_prodact_option_plan" style="display: none;"></div>
+<div id="Dialog_prod_add_activity_restrict" style="display: none;"></div>
+<div id="Dialog_prod_edit_activity_restrict" style="display: none;"></div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        load_refineryproducitonplan_graph();
+
+        $('#Dialog_proddirect_edit_activity').dialog({
+            modal: true,
+            autoOpen: false,
+            resizable: false,
+            draggable: true,
+            width: 713,
+            height: 2000,
+            title: 'Modify  Entry',
+            closeText: 'Close [X]',
+            position: { my: "center", at: "center", of: window },
+
+        });
+        $(function () {
+            $('#Dialog_prod_add_activity').dialog({
+                modal: true,
+                autoOpen: false,
+                resizable: false,
+                draggable: true,
+                width: 713,
+                height: 2000,
+                title: 'New  Entry',
+                closeText: 'Close [X]',
+                position: { my: "center", at: "center", of: window },
+
+            });
+            $('#Dialog_prod_edit_activity').dialog({
+                modal: true,
+                autoOpen: false,
+                resizable: false,
+                draggable: true,
+                width: 713,
+                height: 2000,
+                title: 'Modify Entry',
+                closeText: 'Close [X]',
+                position: { my: "center", at: "center", of: window },
+
+            });
+
+            $('#Dialog_prod_insert_activity').dialog({
+                modal: true,
+                autoOpen: false,
+                resizable: false,
+                draggable: true,
+                width: 713,
+                height: 2000,
+                title: 'Insert  Activity',
+                closeText: 'Close [X]',
+                position: { my: "center", at: "center", of: window },
+                //open: function (event, ui) {
+                //    $(event.target).parent().css('position', 'fixed');
+                //    $(event.target).parent().css('top', '200px');
+                //},
+            });
+
+            $('#Dialog_prodact_option').dialog({
+                modal: true,
+                autoOpen: false,
+                resizable: false,
+                draggable: true,
+                width: 350,
+                height: 500,
+                title: 'Select  Option',
+                closeText: 'Close [X]',
+                //position: { my: "center", at: "center", of: window },
+                open: function (event, ui) {
+                    $(event.target).parent().css('position', 'fixed');
+                    $(event.target).parent().css('top', '200px');
+                },
+                closeOnEscape: true,
+                close: function (event, ui) {
+                    if (event.originalEvent) {
+                        // triggered by clicking on dialog box X or pressing ESC
+                        // not triggered if a dialog button was clicked
+                        load_rmmd_refresh();
+                    }                
+                },
+            });
+
+            $('#Dialog_prod_add_activity_plan').dialog({
+                modal: true,
+                autoOpen: false,
+                resizable: false,
+                draggable: true,
+                width: 713,
+                height: 2000,
+                title: 'New Plan Activity',
+                closeText: 'Close [X]',
+                position: { my: "center", at: "center", of: window },
+                //open: function (event, ui) {
+                //    $(event.target).parent().css('position', 'fixed');
+                //    $(event.target).parent().css('top', '200px');
+                //},
+            });
+
+            $('#Dialog_prod_edit_activity_plan').dialog({
+                modal: true,
+                autoOpen: false,
+                resizable: false,
+                draggable: true,
+                width: 713,
+                height: 2000,
+                title: 'Modify Plan Activity',
+                closeText: 'Close [X]',
+                position: { my: "center", at: "center", of: window },
+                //open: function (event, ui) {
+                //    $(event.target).parent().css('position', 'fixed');
+                //    $(event.target).parent().css('top', '200px');
+                //},
+            });
+
+            $('#Dialog_prod_insert_activity_plan').dialog({
+                modal: true,
+                autoOpen: false,
+                resizable: false,
+                draggable: true,
+                width: 713,
+                height: 2000,
+                title: 'Insert Plan Activity',
+                closeText: 'Close [X]',
+                position: { my: "center", at: "center", of: window },
+                //open: function (event, ui) {
+                //    $(event.target).parent().css('position', 'fixed');
+                //    $(event.target).parent().css('top', '200px');
+                //},
+            });
+
+            $('#Dialog_prodact_option_plan').dialog({
+                modal: true,
+                autoOpen: false,
+                resizable: false,
+                draggable: true,
+                width: 350,
+                height: 500,
+                title: 'Select Plan Option',
+                closeText: 'Close [X]',
+                //position: { my: "center", at: "center", of: window },
+                open: function (event, ui) {
+                    $(event.target).parent().css('position', 'fixed');
+                    $(event.target).parent().css('top', '200px');
+                },
+            });
+
+
+            $('#Dialog_prod_add_activity_restrict').dialog({
+                modal: true,
+                autoOpen: false,
+                resizable: false,
+                draggable: true,
+                width: 713,
+                height: 2000,
+                title: 'New Activity',
+                closeText: 'Close [X]',
+                position: { my: "center", at: "center", of: window },
+                //open: function (event, ui) {
+                //    $(event.target).parent().css('position', 'fixed');
+                //    $(event.target).parent().css('top', '200px');
+                //},
+            });
+
+
+
+
+        });
+    });
+
+
+    //load_sample();
+    $("#timeLineGraph_actual").draggable();
+
+
+    function load_production_by_block_load() {
+        var thisblock = $('#load_production_by_block').val();
+        if (thisblock > 0) {
+            drawChart_planbyblock();
+        } else {
+            drawChart_plan();
+        }
+    }
+
+    function drawChart_per_stream_load() {
+        var streamid = $('#streamid').val();
+        var thisblock = $('#load_production_by_block').val();
+        if (streamid > 0) {
+            drawChart_per_stream();
+        } else if (thisblock > 0) {
+            drawChart_planbyblock();
+        } else {
+            drawChart_plan();
+        }
+    }
+
+
+    $(".tabs-menu a").click(function (event) {
+
+        event.preventDefault();
+        $(this).parent().addClass("current");
+
+        $(this).parent().siblings().removeClass("current");
+
+        var tab = $(this).attr("href");
+        $(".tab-content").not(tab).css("display", "none");
+        $(tab).fadeIn();
+    });
+
+
+
+
+</script>

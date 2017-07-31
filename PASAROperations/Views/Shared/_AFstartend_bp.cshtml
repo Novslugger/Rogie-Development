@@ -1,0 +1,154 @@
+﻿@model IEnumerable<PASAROperations.Models.ActivityCode>
+<div id="activity_add_div">
+    <div id ="wrapper_addact_div">
+     
+        <div id="addact_cyc_detail_wrap">
+            <div id="addact_cyc_detail">    
+     
+                Lot No. : <b></b> 
+        <br /><br />
+                AF No. : <b></b></div>
+ 
+         </div>
+          <div id="addact_leftdiv">
+        <br />
+        Activity : <input type="text" class="act_add_code_input" maxlength="3"/>
+        <br /> <br />
+        <div id="Act_Desc_div"> </div>
+         <br />
+  <div>
+        <tr>
+           <td rowspan="2" class="">Called date and time : <input id="called_date" type="text" value="("MM/dd/yyyy")"/></td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td id="called_date_id">
+                <select id="start_time_calledhr_input">
+                        @{
+                            int calledhr = Int32.Parse(ViewBag.Start_MatteTapping.ToString("HH"));
+
+                            for (int x = 0; x <= 23; x++)
+                            {
+                                if (@x <= 9)
+                                {
+
+                                    if (@x == @calledhr)
+                                    { <option value="@x" selected="selected">@("0" + @x)</option> }
+                                    else
+                                    { <option value="@x">@("0" + @x)</option> }
+                                }
+                                else
+                                {
+                                    if (@x == @calledhr)
+                                    {  <option value="@x" selected="selected">@x</option> }
+                                    else
+                                    {  <option value="@x">@x</option> }
+                                }
+                            }}
+                    </select>&nbsp;:
+                    <select id="start_time_calledmin_input">
+                        @{
+                            int calledmin = Int32.Parse(ViewBag.Start_MatteTapping.ToString("mm"));
+
+
+                            for (int x = 0; x <= 59; x++)
+                            {
+                                if (@x <= 9)
+                                {
+
+                                    if (@x == @calledmin)
+                                    {  <option value="@x" selected="selected">@("0" + @x)</option> }
+                                    else
+                                    { <option value="@x">@("0" + @x)</option> }
+                                }
+                                else
+                                {
+                                    if (@x == @calledmin)
+                                    {  <option value="@x" selected="selected">@x</option> }
+                                    else
+                                    { <option value="@x">@x</option> }
+
+                                }
+                            }}
+                    </select>
+
+            </td>
+        </tr>
+       
+        <table id="start_time_table">
+            <br /><br />
+            <tr>
+                <td rowspan="2" class="label_datetype">Start Time : &nbsp;</td>
+                <td class="label_date">Date</td>
+                <td class="label_date">Time (hh:mm)</td>
+            </tr>
+
+            <tr>
+                <td id="start_date_addact_mtap">
+                    <input id="start_date_input" type="text" value="@ViewBag.MatteTappingDate_Today.ToString("MM/dd/yyyy")"/></td>
+                <td id="start_time_addact_mtap">
+                    <select id="start_time_hr_input">
+                        @{
+                            int hr = Int32.Parse(ViewBag.Start_MatteTapping.ToString("HH"));
+
+                            for (int x = 0; x <= 23; x++)
+                            {
+                                if (@x <= 9)
+                                {
+
+                                    if (@x == @hr)
+                                    { <option value="@x" selected="selected">@("0" + @x)</option> }
+                                    else
+                                    { <option value="@x">@("0" + @x)</option> }
+                                }
+                                else
+                                {
+                                    if (@x == @hr)
+                                    {  <option value="@x" selected="selected">@x</option> }
+                                    else
+                                    {  <option value="@x">@x</option> }
+                                }
+                            }}
+                    </select>&nbsp;:
+                    <select id="start_time_min_input">
+                        @{
+                            int min = Int32.Parse(ViewBag.Start_MatteTapping.ToString("mm"));
+
+
+                            for (int x = 0; x <= 59; x++)
+                            {
+                                if (@x <= 9)
+                                {
+
+                                    if (@x == @min)
+                                    {  <option value="@x" selected="selected">@("0" + @x)</option> }
+                                    else
+                                    { <option value="@x">@("0" + @x)</option> }
+                                }
+                                else
+                                {
+                                    if (@x == @min)
+                                    {  <option value="@x" selected="selected">@x</option> }
+                                    else
+                                    { <option value="@x">@x</option> }
+
+                                }
+                            }}
+                    </select>
+                </td>
+            </tr>
+        </table>
+
+    
+    </div>
+
+     
+ <br /><br />
+        <div>Comments:</div>
+        
+        <textarea id="comments_textarea_input" rows="3">-</textarea>
+
+    </div>
+       
+    </div>
+     <br /><br /><br /> <br /><br /><br /> <br /><br /><br /> <br /><br /><br 
+         <br /><br /><br /> <br /><br /><br /> <br /><br /><br /> <br /><br /><br />
+</div>

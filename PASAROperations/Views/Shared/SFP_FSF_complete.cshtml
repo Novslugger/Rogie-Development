@@ -1,0 +1,46 @@
+﻿@Scripts.Render("~/bundles/jqueryui")
+<div id="DialogSFP_Edit" style="overflow: hidden;"></div>
+<div id="container">
+    <div id="sfp_div">
+    <h5>FSF Completed Pots</h5>
+        <div id="pageNavPosition"></div>
+        <br>
+        <br>
+        <span id="page_id" value="">2</span>
+        <table class="af_tbl" id="sfp_tbl">
+            <tr>
+                <th style="width: 35px;">Initial Location</th>
+                <th>Actual Location</th>
+                <th>Date Delivered</th>
+                <th>Pot No.</th>
+                <th style="width: 70px;">Planned Cool Time(hrs)</th>
+                <th style="width: 70px;">Actual Cool Time(hrs)</th>
+                <th>Expected Dump Time</th>
+                <th>Actual Time</th>
+                <th>Dumping Temperature</th>
+                <th>Remarks</th>
+                <th colspan="2">Actions</th>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ui-datepicker-div').remove();
+        load_sfp_complete_data(2);
+        $(function () {
+            $('#DialogSFP_Edit').dialog({
+                autoOpen: false,
+                width: 400,
+                height: 600,
+                resizable: false,
+                draggable: true,
+                title: 'Pots Edit',
+                closeText: 'Close[x]',
+                modal: true,
+                position: [1150, 170]
+            });
+        });
+    });
+</script>

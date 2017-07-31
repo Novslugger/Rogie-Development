@@ -1,0 +1,322 @@
+﻿@{
+    ViewBag.Title = "_addnewactivity";
+}
+<div id="af_activity">
+    <b>AF Activity :</b><br /><br />
+    <div class="data_left">
+        <tr>
+           <td rowspan="2" class="">Start <input id="afstart_date" type="text" value="@ViewBag.AFStartDate_Today.ToString("MM/dd/yyyy")" class="add_activity"/></td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td id="afstart_date_id">
+                <select id="start_time_afhr_input">
+                        @{
+                            int safdhr = Int32.Parse(ViewBag.Start_AFActivity.ToString("HH"));
+
+                            for (int x = 0; x <= 23; x++)
+                            {
+                                if (@x <= 9)
+                                {
+
+                                    if (@x == @safdhr)
+                                    { <option value="@x" selected="selected">@("0" + @x)</option> }
+                                    else
+                                    { <option value="@x">@("0" + @x)</option> }
+                                }
+                                else
+                                {
+                                    if (@x == @safdhr)
+                                    {  <option value="@x" selected="selected">@x</option> }
+                                    else
+                                    {  <option value="@x">@x</option> }
+                                }
+                            }}
+                    </select>&nbsp;:
+                    <select id="start_time_afmin_input">
+                        @{
+                            int safmin = Int32.Parse(ViewBag.Start_AFActivity.ToString("mm"));
+
+
+                            for (int x = 0; x <= 59; x++)
+                            {
+                                if (@x <= 9)
+                                {
+
+                                    if (@x == @safmin)
+                                    {  <option value="@x" selected="selected">@("0" + @x)</option> }
+                                    else
+                                    { <option value="@x">@("0" + @x)</option> }
+                                }
+                                else
+                                {
+                                    if (@x == @safmin)
+                                    {  <option value="@x" selected="selected">@x</option> }
+                                    else
+                                    { <option value="@x">@x</option> }
+
+                                }
+                            }}
+                    </select>
+         
+
+            </td>
+            <br /><br />
+            <td rowspan="2" class="">End <input id="afend_date" type="text" value="@ViewBag.AFStartDate_Today.ToString("MM/dd/yyyy")" " class="add_activity"/></td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td id="afend_date_id">
+                <select id="end_time_afhr_input">
+                        @{
+                            int eafdhr = Int32.Parse(ViewBag.End_AFActivity.ToString("HH"));
+
+                            for (int x = 0; x <= 23; x++)
+                            {
+                                if (@x <= 9)
+                                {
+
+                                    if (@x == @eafdhr)
+                                    { <option value="@x" selected="selected">@("0" + @x)</option> }
+                                    else
+                                    { <option value="@x">@("0" + @x)</option> }
+                                }
+                                else
+                                {
+                                    if (@x == @eafdhr)
+                                    {  <option value="@x" selected="selected">@x</option> }
+                                    else
+                                    {  <option value="@x">@x</option> }
+                                }
+                            }}
+                    </select>&nbsp;:
+                    <select id="end_time_afmin_input">
+                        @{
+                            int eafmin = Int32.Parse(ViewBag.End_AFActivity.ToString("mm"));
+
+
+                            for (int x = 0; x <= 59; x++)
+                            {
+                                if (@x <= 9)
+                                {
+
+                                    if (@x == @eafmin)
+                                    {  <option value="@x" selected="selected">@("0" + @x)</option> }
+                                    else
+                                    { <option value="@x">@("0" + @x)</option> }
+                                }
+                                else
+                                {
+                                    if (@x == @eafmin)
+                                    {  <option value="@x" selected="selected">@x</option> }
+                                    else
+                                    { <option value="@x">@x</option> }
+
+                                }
+                            }}
+                    </select>
+                   
+            
+
+            </td>
+            <br /><br />
+            <td id="select_cf_id"  rowspan="2" class="">Duration <input id="" type="text" value="" class="add_activity"/></td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td id="called_date_id">
+           
+
+            </td>
+             <td rowspan="2" class="">CF 
+                  <select id="cf_select_id">
+                    <option></option>
+                    <option>CF1</option>
+                    <option>CF2</option>
+                    <option>CF3</option>
+                    <option>CF4</option>
+                </select>
+
+             </td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td id="">
+               
+           
+
+            </td>
+        </tr>
+        <br /><br />
+         <tr>
+           <td rowspan="2" class="">Code <input id="" type="text" value="" class="add_activity"/></td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td id="called_date_id">
+         
+
+            </td>
+            <td rowspan="2" class="">Activity <input id="" type="text" value="" class="add_activity"/></td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td id="called_date_id">
+            
+
+            </td>
+
+           
+        </tr>
+        <br /><br />
+         <tr>
+           <td rowspan="2" class="">Cycle No. <input id="" type="text" value="" class="add_activity"/></td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td id="called_date_id">
+         
+
+            </td>
+            <td rowspan="2" class="">Weight <input id="" type="text" value="" class="add_activity"/></td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td id="called_date_id">
+            
+
+            </td>
+             <br /><br />
+            <td rowspan="2" class="">PPM Sulfur <input id="" type="text" value="" class="add_activity"/></td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td id="called_date_id">
+           
+
+            </td>
+              <td rowspan="2" class="">Temp.<input id="" type="text" value="" class="add_activity"/></td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td id="called_date_id">
+           
+
+            </td>
+             <br /><br />
+              <td rowspan="2" class="">Remarks<textarea ></textarea></td>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td id="called_date_id">
+           
+
+            </td>
+        </tr>
+       
+     
+    </div>
+
+     <div class="data_right">
+      <table border="1" width="350px">
+          <tr>
+              <td>Code Activity</td>
+              <td>Description</td>
+              
+
+          </tr>
+          <tr>
+              <td>AR</td>
+              <td>Accretion removal</td>
+              
+
+          </tr>
+          <tr>
+              <td>DH</td>
+              <td>Acid Plant Constraint</td>
+              
+
+          </tr>
+          <tr>
+              <td>DJ</td>
+              <td>AF Constraint</td>
+             
+
+          </tr>
+          <tr>
+              <td>TC</td>
+              <td>Blister copper to other converter</td>
+             
+
+          </tr>
+          <tr>
+              <td>N</td>
+              <td>Blister discharging</td>
+             
+
+          </tr>
+          <tr>
+              <td>Y</td>
+              <td>Blister Slag Charging</td>
+             
+
+          </tr>
+          <tr>
+              <td>N1</td>
+              <td>Blister Slag Skimming</td>
+             
+
+          </tr>
+          <tr>
+              <td>EB</td>
+              <td>Blower Problem</td>
+             
+
+          </tr>
+          <tr>
+              <td>CA</td>
+              <td>Blowing Operation</td>
+             
+
+          </tr>
+          <tr>
+              <td>W</td>
+              <td>Burner off</td>
+             
+
+          </tr>
+           <tr>
+              <td>V</td>
+              <td>Burner on</td>
+             
+
+          </tr>
+          <tr>
+              <td>BCR</td>
+              <td>Bypass chute repair</td>
+          </tr>
+
+
+      </table>
+    
+    </div>
+  
+
+  
+    <br />
+       <br />
+    <div class="pos_bottom_btn">
+        <br />
+        <br />
+        <br />
+        <br /><br />
+        <br />
+       
+        <input id="add_mtapping_ok_btn" type="button" value="Add Activity" class="" />&nbsp;@*<input id="add_mtapping_close_btn" type="button" value="Cancel" />*@
+
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#afstart_date").datepicker({
+            showOn: 'button',
+            buttonText: 'Show Date',
+            buttonImageOnly: true,
+            buttonImage: serverpath + '/Images/calendar.png',
+            dateFormat: 'mm/dd/yy',
+            constrainInput: true
+        });
+
+        $("#afend_date").datepicker({
+            showOn: 'button',
+            buttonText: 'Show Date',
+            buttonImageOnly: true,
+            buttonImage: serverpath + '/Images/calendar.png',
+            dateFormat: 'mm/dd/yy',
+            constrainInput: true
+        });
+
+    });
+
+</script>
+

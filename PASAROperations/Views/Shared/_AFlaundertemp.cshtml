@@ -1,0 +1,140 @@
+﻿
+<div id="add_afblister_div">
+<h6>Casting Form</h6>
+   
+    <table class="af_time_table">
+
+            <tr>              
+              @*  <td rowspan="2" class="label_datetype">Start Time : &nbsp;</td>*@
+                @*<td class="label_date">Date</td>*@
+                <td class="label_date">Time &nbsp;&nbsp;(hh:mm)</td>
+            </tr>
+              
+            <tr>
+                @*<td class="af_date_td"><input disabled="disabled" id="start_date_input_cast" type="text" value="@ViewBag.datetime.ToString("MM/dd/yyyy")"/></td>*@
+                <td class="af_time_td">
+            <select id="start_time_hr_input_cast">
+            @{
+                int hr;
+                int min_ = Int32.Parse(ViewBag.datetime.ToString("mm"));
+                if (min_ == 60)
+                {
+
+                    hr = Int32.Parse(ViewBag.datetime.ToString("HH"));
+
+                }
+                else
+                {
+                    hr = Int32.Parse(ViewBag.datetime.ToString("HH"));
+                }
+
+
+                for (int x = 0; x <= 23; x++)
+                {
+                    if (@x <= 9)
+                    {
+
+                        if (@x == @hr)
+                        {  <option value="@x" selected="selected">@("0" + @x)</option> }
+                        else
+                        { <option value="@x">@("0" + @x)</option> }
+                    }
+
+
+                    else
+                    {
+
+                        if (@x == @hr)
+                        {  <option value="@x" selected="selected">@x</option> }
+                        else
+                        { <option value="@x">@x</option> }
+
+
+                    }
+                }
+                }
+                                                          
+            </select>&nbsp;:
+            <select id="start_time_min_input_cast">
+              @{
+                  int min = Int32.Parse(ViewBag.datetime.ToString("mm"));
+
+
+                  for (int x = 0; x <= 59; x++)
+                  {
+                      if (@x <= 9)
+                      {
+
+                          if (@x == @min)
+                          {  <option value="@x" selected="selected">@("0" + @x)</option> }
+                          else
+                          { <option value="@x">@("0" + @x)</option> }
+                      }
+
+
+                      else
+                      {
+
+                          if (@x == @min)
+                          {  <option value="@x" selected="selected">@x</option> }
+                          else
+                          { <option value="@x">@x</option> }
+
+
+                      }
+                  }
+                }                                               
+            </select>
+
+</td></tr>
+       </table>
+        
+
+<br />
+     
+</div>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+          validation_perbtn_casting();
+
+            $("#end_date_input_cast").datepicker({
+                showOn: 'button',
+                buttonText: 'Show Date',
+                buttonImageOnly: true,
+                buttonImage: serverpath + '/Images/calendar.png',
+                dateFormat: 'mm/dd/yy',
+                constrainInput: true
+            });
+
+            $(".ui-datepicker-trigger").mouseover(function () {
+                $(this).css('cursor', 'pointer');
+
+            });
+
+            //$("#start_date_input_cast").datepicker({
+            //    showOn: 'button',
+            //    buttonText: 'Show Date',
+            //    buttonImageOnly: true,
+            //    buttonImage: serverpath + '/Images/calendar.png',
+            //    dateFormat: 'mm/dd/yy',
+            //    constrainInput: true
+            //});
+
+            $(".ui-datepicker-trigger").mouseover(function () {
+                $(this).css('cursor', 'pointer');
+
+            });
+                  
+           
+
+    });
+
+ 
+   
+
+
+    </script>

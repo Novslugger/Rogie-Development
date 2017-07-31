@@ -1,0 +1,98 @@
+﻿@{
+    ViewBag.Title = "_startdatetimebp";
+}
+<div id="add_startdatetime_blisterprep_div">
+@*<h2>_startdatetimebp</h2>*@
+    <div id="blister_prep_addDT">
+        <tr>
+           <td rowspan="2" class=""> <b>Date :</b> <input id="bp_date" type="text" value="@ViewBag.BlisterPrepDate_Today.ToString("MM/dd/yyyy")"/></td><br /><br />
+            
+            <td id="bp_date_id"><b>Time :</b>
+                <select id="start_time_bphr_input">
+                        @{
+                            int bphr = Int32.Parse(ViewBag.Start_BlisterPrep.ToString("HH"));
+
+                            for (int x = 0; x <= 23; x++)
+                            {
+                                if (@x <= 9)
+                                {
+
+                                    if (@x == @bphr)
+                                    { <option value="@x" selected="selected">@("0" + @x)</option> }
+                                    else
+                                    { <option value="@x">@("0" + @x)</option> }
+                                }
+                                else
+                                {
+                                    if (@x == @bphr)
+                                    {  <option value="@x" selected="selected">@x</option> }
+                                    else
+                                    {  <option value="@x">@x</option> }
+                                }
+                            }}
+                    </select>&nbsp;:
+
+                    <select id="start_time_bpmin_input">
+                        @{
+                            int bpmin = Int32.Parse(ViewBag.Start_BlisterPrep.ToString("mm"));
+
+
+                            for (int x = 0; x <= 59; x++)
+                            {
+                                if (@x <= 9)
+                                {
+
+                                    if (@x == @bpmin)
+                                    {  <option value="@x" selected="selected">@("0" + @x)</option> }
+                                    else
+                                    { <option value="@x">@("0" + @x)</option> }
+                                }
+                                else
+                                {
+                                    if (@x == @bpmin)
+                                    {  <option value="@x" selected="selected">@x</option> }
+                                    else
+                                    { <option value="@x">@x</option> }
+
+                                }
+                            }}
+                    </select>
+
+            </td>
+        </tr>
+
+
+    </div>
+     <div class="right_side">
+        <br />
+        <br />
+        <input id="add_bp_ok_btn" type="button" value="Add" />&nbsp;@*<input id="add_mtapping_close_btn" type="button" value="Cancel" />*@
+
+    </div>
+
+
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+     
+        $("#bp_date").datepicker({
+            showOn: 'button',
+            buttonText: 'Show Date',
+            buttonImageOnly: true,
+            buttonImage: serverpath + '/Images/calendar.png',
+            dateFormat: 'mm/dd/yy',
+            constrainInput: true
+        });
+
+
+        $(".ui-datepicker-trigger").mouseover(function () {
+            $(this).css('cursor', 'pointer');
+
+        });
+
+    });
+
+  
+</script>

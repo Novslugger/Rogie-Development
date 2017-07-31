@@ -1,0 +1,186 @@
+﻿@*<div id="rpp_log_header">
+     Date:
+    <input id="fsfe_shiftdate" type="text" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input id="spp_date_btn" type="button" value="Select" />
+    <div id="fsfe_prod_id"></div>
+</div>*@
+@{
+    ViewBag.Title = "Refinery ProdPlan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Scripts.Render("~/bundles/jquery")
+@*<br/>
+<div id="spp_wrapper">
+    <div id="spp_wrap_header">
+        <div class="horizontaltabsspp">
+            <dl class="tabs horizontal_ref">
+                <dd class="active"><a href="#" onclick="ddactive_rpp_month('Refinery_ProdPlanMonthly');return false;"><h6>&#x1f4c5; Production Plan Monthly</h6></a></dd>
+                <dd><a href="#" onclick="ddactive_rpp('Refinery_KeyPlan');return false;"><h6>&#x2634; Production Plan Weekly</h6></a></dd>
+                <dd><a href="#" onclick="ddactive_rpp('Refinery_PlanVsActual');return false;"><h6>&#x2600; Production Plan Daily</h6></a></dd>
+
+            </dl>
+        </div>
+        <div class="refinery-tabs-content horizontaltabs_ref">
+            <div class="content active" id="htab-panel1">*@
+@*@Html.Partial("~/Views/Shared/Refinery_ProdPlanMonthly.cshtml")*@
+@*            </div>
+        </div>
+    </div>
+</div>
+<span id="rppw_iYearr" style="display:none;"></span>
+<span id="rppw_iMonthh" style="display:none;"></span>
+<input id="drawChart_dataweekby_blockk" style="display:none;"/>
+<script type="text/javascript">  
+    $(document).ready(function () {
+        ddactive_rpp_month('Refinery_ProdPlanMonthly');
+    });
+
+</script>*@
+
+
+<div id="fsfe_log_header" style="background-color: #e0e0e0 !important;">
+
+    <div id="rrppdiv1">
+        <span class="ref_text_label" style="display: inline;">Please select month and year:</span>
+        <input type="text" id="ref_rppm_date" class="mbf_date" style="border: solid 1px black; display: inline;" title="Filter by Month and Year" />
+    </div>
+    <div id="rrppdiv2" style="display: none;">
+        <span class="ref_text_label" style="display: inline;">Select Date:</span>
+        <input type="text" id="rpp_daily_date" class="ref_date" onchange="load_refineryproducitonplan_graph()" style="display: inline;" />
+    </div>
+    <div id="rpp_imonth" style="display: none;"></div>
+    <div id="rpp_iyear" style="display: none;"></div>
+</div>
+
+<div class="container">
+    <div id="fsfe_log_wrapper">
+        <div id="fsfe_log_wrapper_left">
+            <div class="thetabs">
+                <div class="verticaltabs">
+                    <dl class="tabs vertical">
+                        <dd id="dd1" class="active"><a href="#" onclick="ddactive_rpp_month('Refinery_ProdPlanMonthly');return false;" style="font-size: 9px;">&#x1f4c5; Production Plan Monthly</a></dd>
+                        <dd id="dd2"><a href="#" onclick="ddactive_rpp_month('Refinery_KeyPlan');return false;" style="font-size: 9px;">&#x2634; Production Plan Weekly</a></dd>
+                        <dd id="dd3"><a href="#" onclick="ddactive_rpp_month('Refinery_PlanVsActual');return false;" style="font-size: 10px;">&#x2600; Production Plan Daily</a></dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <div id="refine_log_wrapper_right">
+            <div class="horizontaltabs_tref">
+                <div class="tb_ref_parent">
+                    <div class="tabs-content-ref_rrmonth">
+                        <div class="content active" id="htab-panel_refine">
+                            @*  @Html.Partial("~/Views/Shared/Refinery_activitylog.cshtml")*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        ddactive_rpp_month('Refinery_ProdPlanMonthly');
+     
+        //when click hide
+        $("#dd3").on("click", function () {
+            $("#rrppdiv1").hide(600).fadeOut();
+            $("#rrppdiv2").hide(600).fadeIn();
+        });
+        //when click show
+        $("#dd1,#dd2").on("click", function () {
+            $("#rrppdiv1").show();
+            $("#rrppdiv2").hide(600).fadeOut();
+        });
+
+        $('#htab-panel_refine').css({ 'display': 'block' });
+
+      
+       
+        $("#ref_rppm_date").focus(function () {
+            $(".ui-datepicker-calendar").hide();
+            $("#ui-datepicker-div").position({
+                my: "center top",
+                at: "center bottom",
+                of: $(this)
+            });
+        });
+
+        $("#ref_rppm_date").blur(function () {
+            $(".ui-datepicker-calendar").hide();
+        });
+
+        $(".ui-datepicker-trigger").mouseover(function () {
+            $(this).css('cursor', 'pointer');
+        });
+
+        //$("#ui-datepicker-div").hide();
+         //$("#ref_rppm_date").focus();
+
+        $("#rpp_daily_date").datepicker({
+            showOn: 'button',
+            buttonText: 'Show Date',
+            buttonImageOnly: true,
+            buttonImage: serverpath + '/Images/calendar.png',
+            dateFormat: 'mm/dd/yy',
+            constrainInput: false,
+            maxDate: null,
+
+        });
+        $('#ui-datepicker-div').css('display', 'none');
+        $('#rpp_daily_date').datepicker('setDate', 'today');
+        $(".ui-datepicker-trigger").mouseover(function () {
+            $(this).css('cursor', 'pointer');
+        });
+
+        $("#ref_rppm_date").datepicker({
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: 'MM yy',
+            showButtonPanel: true,
+            onClose: function () {
+                var iMonth = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                var iYear = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                $(this).datepicker('setDate', new Date(iYear, iMonth, 1));
+                $(this).datepicker('refresh');
+                $(".ui-datepicker-calendar").hide();
+                $('thead #tr_param').remove();
+                $('#tbody tr').filter(function () {
+                    return $(this).has('input');
+                }).remove();
+
+                var iiMonth = $("#rpp_imonth").text(iMonth);
+                var iiYear = $("#rpp_iyear").text(iYear);
+
+                var dd1 = $("#dd1").attr("class");
+                var dd2 = $("#dd2").attr("class");
+
+                if (dd1 == "active") {
+                    load_rpp_refine_tablemonth();
+                    load_block_prod_plan_month();
+                }
+                if (dd2 == "active") {
+                    drawChart_dataweek();
+                }
+            },
+
+            beforeShow: function () {
+                if ((selDate = $(this).val()).length > 0) {
+                    iYear = selDate.substring(selDate.length - 4, selDate.length);
+                    iMonth = jQuery.inArray(selDate.substring(0, selDate.length - 5), $(this).datepicker('option', 'monthNames'));
+                    $(this).datepicker('option', 'defaultDate', new Date(iYear, iMonth, 1));
+                    $(this).datepicker('setDate', new Date(iYear, iMonth, 1));
+
+                }
+            }
+        });
+        $('#ref_rppm_date').datepicker('setDate', 'today');
+    });
+
+    //function load_datepick() {
+      
+    //}
+</script>
+
+
+

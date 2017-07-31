@@ -1,0 +1,56 @@
+﻿<div style="width:5000px;height:5000px; left:-520px; position:absolute;">
+<div class="crop_ref_act_div_option">
+
+    <table class="refinery_partial_tbl" style="padding-left: 40px;">
+        <tr>
+            <td>
+                <input type="button" value="&#x2612;&nbsp;Delete" id="btn_proddelete_plan" />
+            </td>
+            <td>&nbsp;</td>
+            <td>
+                <input type="button" value="&#x270E;&nbsp;Edit" id="btn_prodedit_plan" />
+            </td>
+            <td>&nbsp;</td>
+            <td>
+                <input type="button" value="&#x21f2;&nbsp;Insert" id="btn_prodinsert_plan" />
+            </td>
+        </tr>
+    </table>
+    <span id="rppdaykey_id" style="display: none;">@ViewBag.key_id</span>
+
+</div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#Dialog_Refinery_ProdPlanMonth_EditDate #start_date_ref_add_act").datepicker({
+            showOn: 'button',
+            buttonText: 'Show Date',
+            buttonImageOnly: true,
+            buttonImage: serverpath + '/Images/calendar.png',
+            dateFormat: 'mm/dd/yy',
+            constrainInput: false
+        });
+
+
+        $(".ui-datepicker-trigger").mouseover(function () {
+            $(this).css('cursor', 'pointer');
+
+        });
+        $("#btn_prodinsert_plan").click(function () {
+            prod_insert_data_duration_plan(@ViewBag.key_id);
+        });
+        $("#btn_prodedit_plan").click(function () {
+            edit_prodact_direct_data_duration_plan(@ViewBag.key_id);
+        });
+
+        $("#btn_proddelete_plan").click(function () {
+            delete_prodact_data_duration_plan(@ViewBag.key_id);
+        });
+
+
+    });
+
+
+</script>

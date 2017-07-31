@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "AF_Blowing_Poling";
+}
+
+<div id="aftable_div">
+   <table class="aftable" id="blowing_poling_tbl" >
+       <thead>
+        <tr>
+        <th rowspan="2" class="thshort" id="starttime_th">Start Time</th>
+          <th rowspan="2" class="thshort" id="endtime_th">End Time</th>
+           <th rowspan="2" class="thshort">Code</th>
+          <th rowspan="2" class="thlong">Activity</th>
+          <th rowspan="2" class="thshort">Duration</th>
+          @*<th colspan="3">Charging</th>*@
+          <th class="thshort">% Oxygeb</th>
+          <th class="thshort">Tuyere Pressure</th>
+          <th class="thshort">ppm Sulfur</th>
+          <th class="thshort">HFO Firing Rate</th>
+          <th class="thshort">LPG Firing Rate</th>
+          <th class="thshort">Temp</th>
+          <th rowspan="2" class="thlong">Remarks</th> 
+        </tr>
+           </thead>
+        <h4><img width="25" height="25" title="Add Now" id="addrow_blowing_btn" src="~/Images/red_plus.png">&nbsp;&nbsp;<span title="Add Now" class="btn_label_span" id="addrow_blowing_lnk">Add new</span></h4>
+
+          <tbody id="tbody">
+          <tr style="display: none;"></tr>
+       </tbody>
+        
+      </table>
+       @*<h5>AF_Blowing_Poling</h5>*@
+
+   @*  <div id="consume_div_aflogsheet">
+        
+    </div>*@
+        
+    <div id="fuelred_div_aflogsheet">
+        <h6>Fuel Reading</h6>
+         <table id="aflogsheet_fuelred">
+            <tr>
+               <th class="sizing">&nbsp;</th>
+               <th>HFO</th>
+               <th>LFO</th>
+            </tr>
+             <tr>
+               <td class="sizing">Start of tdis lot (Li)</td> 
+               <td><input type="text" class="extratbl_input" /></td>
+               <td><input type="text" class="extratbl_input" /></td>
+             </tr>
+             <tr>
+                <td class="sizing">End of tdis lot (Li)</td> 
+               <td><input type="text" class="extratbl_input" /></td>
+               <td><input type="text" class="extratbl_input" /></td>
+             </tr>
+             <tr>
+                <td class="sizing">Consumption (Li)</td> 
+               <td><input type="text" class="extratbl_input" /></td>
+               <td><input type="text" class="extratbl_input" /></td>
+             </tr>
+        </table>
+    </div>
+
+    <div id="lpgred_div_aflogsheet">
+        <h6>LPG Readings</h6>
+         <table id="aflogsheet_lpgred">
+            <tr>
+               <th>&nbsp;</th>
+               <th>Poling</th>
+               <th>Totalizer</th>
+            </tr>
+             <tr>
+               <td class="sizing">Start</td> 
+               <td><input type="text" class="extratbl_input" /></td>
+               <td><input type="text" class="extratbl_input" /></td>
+             </tr>
+             <tr>
+               <td class="sizing">End</td> 
+               <td><input type="text" class="extratbl_input" /></td>
+               <td><input type="text" class="extratbl_input" /></td>
+             </tr>
+             <tr>
+               <td class="sizing">Consumed</td> 
+               <td><input type="text" class="extratbl_input" /></td>
+               <td><input type="text" class="extratbl_input" /></td>
+             </tr>
+        </table>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jquery") 
